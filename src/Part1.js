@@ -7,12 +7,11 @@ const list = document.getElementById("country-list");
 
 //api koppelen
 async function fetchData() {
-    const URI = 'https://restcountries.com/v2/all'
-    const ENDPOINT = 'countries'
 
     try {
-        const response = await axios.get(URI)
+        const response = await axios.get('https://restcountries.com/v2/all')
         console.log(response);
+        console.log(response.data[0].name)
 
         //sort de array
         response.data.sort ((a,b) => (a.population - b.population));
@@ -42,25 +41,32 @@ async function fetchData() {
 
             switch (country.region) {
                 case "Africa":
-                    itemName.setAttribute('id', 'africa');
+                    //itemName.setAttribute('id', 'africa');
+                    itemName.style.color = 'blue';
                     break;
                 case "Americas":
-                    itemName.setAttribute('id', 'americas');
+                    //itemName.setAttribute('id', 'americas');
+                    itemName.style.color = 'green';
                     break;
                 case "Europe":
-                    itemName.setAttribute('id', 'europe');
+                    //itemName.setAttribute('id', 'europe');
+                    itemName.style.color = 'yellow';
                     break;
                 case "Asia":
-                    itemName.setAttribute('id', 'asia');
+                    //itemName.setAttribute('id', 'asia');
+                    itemName.style.color = 'red'
                     break;
                 case "Oceania":
-                    itemName.setAttribute('id', 'oceania');
+                    //itemName.setAttribute('id', 'oceania');
+                    itemName.style.color = 'purple';
                     break;
                 case "Polar":
-                    itemName.setAttribute('id', 'polar');
+                    //itemName.setAttribute('id', 'polar');
+                    itemName.style.color = 'orange'
                     break;
                 default:
-                    itemName.setAttribute('id', 'unknown')
+                    //itemName.setAttribute('id', 'unknown')
+                    itemName.style.color = 'black'
             }
 
 

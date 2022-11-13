@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"1Mq12":[function(require,module,exports) {
+})({"3peHc":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "4a236f9275d0a351";
-module.bundle.HMR_BUNDLE_ID = "b5b6c481d56a3cb1";
+module.bundle.HMR_BUNDLE_ID = "8d883a49bb09defc";
 "use strict";
 function _createForOfIteratorHelper(o, allowArrayLike) {
     var it;
@@ -458,7 +458,7 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"5HwUs":[function(require,module,exports) {
+},{}],"jFvg6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -466,10 +466,8 @@ console.log('Script is running');
 const list = document.getElementById("country-list");
 //api koppelen
 async function fetchData() {
-    const URI = 'https://restcountries.com/v2/all';
-    const ENDPOINT = 'countries';
     try {
-        const response = await _axiosDefault.default.get(URI);
+        const response = await _axiosDefault.default.get('https://restcountries.com/v2/all');
         console.log(response);
         console.log(response.data[0].name);
         //sort de array
@@ -4662,6 +4660,6 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["1Mq12","5HwUs"], "5HwUs", "parcelRequirecb08")
+},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["3peHc","jFvg6"], "jFvg6", "parcelRequirecb08")
 
-//# sourceMappingURL=index.d56a3cb1.js.map
+//# sourceMappingURL=index.bb09defc.js.map

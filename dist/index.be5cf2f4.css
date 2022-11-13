@@ -4,9 +4,9 @@
 }
 
 .country-flag {
-    width: 100px;
+    max-width: 100px;
 }
-
+/*
 #africa {
     color: blue;
 }
@@ -26,6 +26,13 @@
     color: orange;
 }
 #unknown {
-    color: black;
+
+}
+ */
+
+/*part 2*/
+
+.article-image {
+    max-width: 100px;
 }
 /*# sourceMappingURL=index.be5cf2f4.css.map */
