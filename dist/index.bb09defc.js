@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"1Mq12":[function(require,module,exports) {
+})({"3peHc":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "4a236f9275d0a351";
-module.bundle.HMR_BUNDLE_ID = "b5b6c481d56a3cb1";
+module.bundle.HMR_BUNDLE_ID = "8d883a49bb09defc";
 "use strict";
 function _createForOfIteratorHelper(o, allowArrayLike) {
     var it;
@@ -458,7 +458,7 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"5HwUs":[function(require,module,exports) {
+},{}],"jFvg6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -466,10 +466,8 @@ console.log('Script is running');
 const list = document.getElementById("country-list");
 //api koppelen
 async function fetchData() {
-    const URI = 'https://restcountries.com/v2/all';
-    const ENDPOINT = 'countries';
     try {
-        const response = await _axiosDefault.default.get(URI);
+        const response = await _axiosDefault.default.get('https://restcountries.com/v2/all');
         console.log(response);
         console.log(response.data[0].name);
         //sort de array
@@ -479,20 +477,29 @@ async function fetchData() {
         list.replaceChildren();
         //map door data heen
         response.data.map((country)=>{
+            const { population , flag , region , name  } = country;
+            const countryList = document.createElement("ul");
+            countryList.setAttribute('class', 'country-list');
             //create element with atrributes
             const itemName = document.createElement("li");
             itemName.setAttribute('class', 'country-name');
-            itemName.textContent = country.name;
+            itemName.textContent = name;
             const itemPop = document.createElement("li");
             itemPop.setAttribute('class', 'country-pop');
-            itemPop.textContent = `has a population of ${country.population} poeple`;
+            itemPop.textContent = `${name} has a population of ${population} poeple`;
             const itemImg = document.createElement("img");
             itemImg.setAttribute('class', 'country-flag');
-            itemImg.setAttribute('src', country.flag);
+            itemImg.setAttribute('src', flag);
             const itemRegion = document.createElement("li");
             itemRegion.setAttribute('class', 'country-region');
-            itemRegion.textContent = country.region;
-            switch(country.region){
+            itemRegion.textContent = region;
+            //voeg items toe aan list
+            countryList.appendChild(itemImg);
+            countryList.appendChild(itemName);
+            countryList.appendChild(itemPop);
+            countryList.appendChild(itemRegion);
+            list.appendChild(countryList);
+            switch(region){
                 case "Africa":
                     //itemName.setAttribute('id', 'africa');
                     itemName.style.color = 'blue';
@@ -521,11 +528,6 @@ async function fetchData() {
                     //itemName.setAttribute('id', 'unknown')
                     itemName.style.color = 'black';
             }
-            //voeg items toe aan list
-            list.appendChild(itemName);
-            list.appendChild(itemPop);
-            list.appendChild(itemRegion);
-            list.appendChild(itemImg);
         });
     } catch (err) {
         const errorMessage = document.getElementById("error-message");
@@ -4662,6 +4664,6 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["1Mq12","5HwUs"], "5HwUs", "parcelRequirecb08")
+},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["3peHc","jFvg6"], "jFvg6", "parcelRequirecb08")
 
-//# sourceMappingURL=index.d56a3cb1.js.map
+//# sourceMappingURL=index.bb09defc.js.map

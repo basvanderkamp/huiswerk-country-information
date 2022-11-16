@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"1Mq12":[function(require,module,exports) {
+})({"6SM7H":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "4a236f9275d0a351";
-module.bundle.HMR_BUNDLE_ID = "b5b6c481d56a3cb1";
+module.bundle.HMR_BUNDLE_ID = "34888d0ca836602b";
 "use strict";
 function _createForOfIteratorHelper(o, allowArrayLike) {
     var it;
@@ -458,85 +458,86 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"5HwUs":[function(require,module,exports) {
+},{}],"ag7bx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-console.log('Script is running');
-const list = document.getElementById("country-list");
-//api koppelen
-async function fetchData() {
-    const URI = 'https://restcountries.com/v2/all';
-    const ENDPOINT = 'countries';
+const sectionCountries = document.getElementById('country-information');
+let errorMessage = "";
+async function fetchDataSearch(countryName) {
     try {
-        const response = await _axiosDefault.default.get(URI);
-        console.log(response);
-        console.log(response.data[0].name);
-        //sort de array
-        response.data.sort((a, b)=>a.population - b.population
-        );
-        //leeg de lijst
-        list.replaceChildren();
-        //map door data heen
-        response.data.map((country)=>{
-            //create element with atrributes
-            const itemName = document.createElement("li");
-            itemName.setAttribute('class', 'country-name');
-            itemName.textContent = country.name;
-            const itemPop = document.createElement("li");
-            itemPop.setAttribute('class', 'country-pop');
-            itemPop.textContent = `has a population of ${country.population} poeple`;
-            const itemImg = document.createElement("img");
-            itemImg.setAttribute('class', 'country-flag');
-            itemImg.setAttribute('src', country.flag);
-            const itemRegion = document.createElement("li");
-            itemRegion.setAttribute('class', 'country-region');
-            itemRegion.textContent = country.region;
-            switch(country.region){
-                case "Africa":
-                    //itemName.setAttribute('id', 'africa');
-                    itemName.style.color = 'blue';
-                    break;
-                case "Americas":
-                    //itemName.setAttribute('id', 'americas');
-                    itemName.style.color = 'green';
-                    break;
-                case "Europe":
-                    //itemName.setAttribute('id', 'europe');
-                    itemName.style.color = 'yellow';
-                    break;
-                case "Asia":
-                    //itemName.setAttribute('id', 'asia');
-                    itemName.style.color = 'red';
-                    break;
-                case "Oceania":
-                    //itemName.setAttribute('id', 'oceania');
-                    itemName.style.color = 'purple';
-                    break;
-                case "Polar":
-                    //itemName.setAttribute('id', 'polar');
-                    itemName.style.color = 'orange';
-                    break;
-                default:
-                    //itemName.setAttribute('id', 'unknown')
-                    itemName.style.color = 'black';
-            }
-            //voeg items toe aan list
-            list.appendChild(itemName);
-            list.appendChild(itemPop);
-            list.appendChild(itemRegion);
-            list.appendChild(itemImg);
+        const dataCountry = await _axiosDefault.default.get(`https://restcountries.com/v2/name/${countryName}`);
+        // Leeg de lijst
+        sectionCountries.replaceChildren();
+        errorMessage.replaceChildren();
+        // Map door de data heen
+        dataCountry.data.map((country)=>{
+            //maak variable aan uit arrays
+            const { flags: { png  } , name , capital , subregion , currencies , population , languages  } = country;
+            //make array list of needed names.
+            let coinString;
+            const coinArray = currencies.map((coin)=>{
+                return coin.name;
+            });
+            // print strings
+            if (currencies.length === 1) coinString = `you can pay with ${coinArray[0]}`;
+            else coinString = `you can pay with ${coinArray[0]} and ${coinArray[1]}`;
+            let languagesString;
+            const languagesArray = languages.map((lan)=>{
+                return lan.name;
+            });
+            if (languagesArray.length === 1) languagesString = `they speak ${languagesArray[0]}`;
+            else if (languages.length === 2) languagesString = `they speak ${languagesArray[0]} and ${languagesArray[1]}`;
+            else languagesString = `they speak ${languagesArray[0]}, ${languagesArray[1]} and ${languagesArray[2]}`;
+            // Create new element with attributes
+            const countryInfo = document.createElement('p');
+            countryInfo.setAttribute('class', 'info');
+            countryInfo.textContent = `${name} is situated in ${subregion}. It has a population of ${population} people.`;
+            const countryMoney = document.createElement('p');
+            countryMoney.setAttribute('class', 'money');
+            countryMoney.textContent = `The capital is ${capital} ${coinString}`;
+            const countryLanguages = document.createElement('p');
+            countryLanguages.setAttribute('class', 'languages');
+            countryLanguages.textContent = `${languagesString}`;
+            const articleImage = document.createElement('img');
+            articleImage.setAttribute('class', 'article-image');
+            articleImage.setAttribute('src', png);
+            // Voeg alle items toe aan list
+            sectionCountries.appendChild(countryInfo);
+            sectionCountries.appendChild(countryMoney);
+            sectionCountries.appendChild(countryLanguages);
+            sectionCountries.appendChild(articleImage);
         });
-    } catch (err) {
-        const errorMessage = document.getElementById("error-message");
-        if (err.response.data.status === 404) {
-            errorMessage.textContent = "Page Not Found | 404";
-            console.log(err);
-        }
-        if (err.response.data.status === 500) errorMessage.textContent = "Internal Server Error | 500";
+    } catch (error) {
+        sectionCountries.replaceChildren();
+        // Verwijzing naar error message
+        errorMessage = document.getElementById('error-message');
+        // Check welke error message van toepassing is
+        if (error.response.status === 404) errorMessage.textContent = "I dont know that Country | Page Not Found | 404";
+        if (error.response.status === 500) errorMessage.textContent = "Internal Server Error | 500";
     }
 }
-fetchData();
+// 2. Event Listeners
+// Create reference
+let value = "";
+function textValue(input) {
+    value = input.target.value;
+}
+const userInput = document.getElementById('user-input');
+userInput.addEventListener("keyup", textValue);
+userInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("button").click();
+        fetchDataSearch(value);
+        userInput.value = "";
+    }
+});
+const button = document.getElementById('button');
+button.addEventListener('click', ()=>{
+    fetchDataSearch(value);
+    userInput.value = "";
+});
 
 },{"axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1IeuP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -4662,6 +4663,6 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["1Mq12","5HwUs"], "5HwUs", "parcelRequirecb08")
+},{"./../utils.js":"60BxC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["6SM7H","ag7bx"], "ag7bx", "parcelRequirecb08")
 
-//# sourceMappingURL=index.d56a3cb1.js.map
+//# sourceMappingURL=part2.a836602b.js.map
