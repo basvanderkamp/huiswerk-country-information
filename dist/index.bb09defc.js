@@ -477,20 +477,29 @@ async function fetchData() {
         list.replaceChildren();
         //map door data heen
         response.data.map((country)=>{
+            const { population , flag , region , name  } = country;
+            const countryList = document.createElement("ul");
+            countryList.setAttribute('class', 'country-list');
             //create element with atrributes
             const itemName = document.createElement("li");
             itemName.setAttribute('class', 'country-name');
-            itemName.textContent = country.name;
+            itemName.textContent = name;
             const itemPop = document.createElement("li");
             itemPop.setAttribute('class', 'country-pop');
-            itemPop.textContent = `has a population of ${country.population} poeple`;
+            itemPop.textContent = `${name} has a population of ${population} poeple`;
             const itemImg = document.createElement("img");
             itemImg.setAttribute('class', 'country-flag');
-            itemImg.setAttribute('src', country.flag);
+            itemImg.setAttribute('src', flag);
             const itemRegion = document.createElement("li");
             itemRegion.setAttribute('class', 'country-region');
-            itemRegion.textContent = country.region;
-            switch(country.region){
+            itemRegion.textContent = region;
+            //voeg items toe aan list
+            countryList.appendChild(itemImg);
+            countryList.appendChild(itemName);
+            countryList.appendChild(itemPop);
+            countryList.appendChild(itemRegion);
+            list.appendChild(countryList);
+            switch(region){
                 case "Africa":
                     //itemName.setAttribute('id', 'africa');
                     itemName.style.color = 'blue';
@@ -519,11 +528,6 @@ async function fetchData() {
                     //itemName.setAttribute('id', 'unknown')
                     itemName.style.color = 'black';
             }
-            //voeg items toe aan list
-            list.appendChild(itemName);
-            list.appendChild(itemPop);
-            list.appendChild(itemRegion);
-            list.appendChild(itemImg);
         });
     } catch (err) {
         const errorMessage = document.getElementById("error-message");

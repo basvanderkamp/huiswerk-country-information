@@ -38,8 +38,6 @@ async function fetchDataSearch(countryName) {
                 coinString = `you can pay with ${coinArray[0]} and ${coinArray[1]}`;
             }
 
-
-
             let languagesString;
             const languagesArray= languages.map((lan) => {
                 return lan.name;

@@ -1,10 +1,26 @@
 
+.country-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-content: space-between;
+}
+
 .world-map {
     max-width: 1000px;
 }
 
 .country-flag {
     max-width: 100px;
+    margin-bottom: 20px;
+}
+
+.list-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-basis: 100%;
 }
 /*
 #africa {
@@ -34,4 +50,14 @@
 
 .article-image {
     max-width: 100px;
+
+}
+
+.country-list {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    list-style: none;
+    width: 400px;
+
 }

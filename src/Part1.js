@@ -5,13 +5,14 @@ console.log('Script is running');
 
 const list = document.getElementById("country-list");
 
+
 //api koppelen
 async function fetchData() {
 
     try {
-        const response = await axios.get('https://restcountries.com/v2/all')
+        const response = await axios.get('https://restcountries.com/v2/all');
         console.log(response);
-        console.log(response.data[0].name)
+        console.log(response.data[0].name);
 
         //sort de array
         response.data.sort ((a,b) => (a.population - b.population));
@@ -21,25 +22,37 @@ async function fetchData() {
 
         //map door data heen
         response.data.map((country) => {
+
+            const {population, flag, region, name} = country;
+
+            const countryList = document.createElement("ul");
+            countryList.setAttribute('class', 'country-list');
+
             //create element with atrributes
             const itemName = document.createElement("li");
             itemName.setAttribute('class', 'country-name');
-            itemName.textContent = country.name;
+            itemName.textContent = name;
 
             const itemPop = document.createElement("li");
             itemPop.setAttribute('class', 'country-pop');
-            itemPop.textContent = `has a population of ${country.population} poeple`;
+            itemPop.textContent = `${name} has a population of ${population} poeple`;
 
             const itemImg = document.createElement("img");
             itemImg.setAttribute('class', 'country-flag');
-            itemImg.setAttribute('src', country.flag);
+            itemImg.setAttribute('src', flag);
 
             const itemRegion = document.createElement("li");
             itemRegion.setAttribute('class', 'country-region');
-            itemRegion.textContent = country.region;
+            itemRegion.textContent = region;
 
+            //voeg items toe aan list
+            countryList.appendChild(itemImg);
+            countryList.appendChild(itemName);
+            countryList.appendChild(itemPop);
+            countryList.appendChild(itemRegion);
+            list.appendChild(countryList);
 
-            switch (country.region) {
+            switch (region) {
                 case "Africa":
                     //itemName.setAttribute('id', 'africa');
                     itemName.style.color = 'blue';
@@ -68,15 +81,8 @@ async function fetchData() {
                     //itemName.setAttribute('id', 'unknown')
                     itemName.style.color = 'black'
             }
-
-
-            //voeg items toe aan list
-            list.appendChild(itemName);
-            list.appendChild(itemPop);
-            list.appendChild(itemRegion);
-            list.appendChild(itemImg);
-
         })
+
 
     } catch (err) {
         const errorMessage = document.getElementById("error-message");
